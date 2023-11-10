@@ -1,52 +1,43 @@
-README - Práctica 1 FSI
+README - Practice 1 FSI
 
-Estudiantes: Santiago Ramirez Olivares y Adrián Talavera Naranjo
+Students: Santiago Ramirez Olivares and Adrián Talavera Naranjo
 
+Tasks included:
 
-Tareas incluidas:
+1. Implement "Branch and Bound Search."
+2. Implement "Branch and Bound Search with Subestimation" using straight-line distance as the problem’s heuristic.
+3. Compare the number of expanded nodes in both strategies.
 
-1. Programar la "Búsqueda de Ramificación y Acotación".
-2. Programar la "Búsqueda de Ramificación y Acotación con Subestimación" usando la distancia en línea recta como heurística. 
-3. Comparar la cantidad de nodos expandidos en ambas estrategias.
+The first strategy is "Branch and Bound Search," an uninformed technique that prioritizes nodes with lower cost. The second is "Branch and Bound Search with Subestimation," an informed strategy that combines accumulated cost with an heuristic estimation. The graph of the cities of Romania is used as an example.
 
-La primera estrategia es la "Búsqueda de Ramificación y Acotación," una técnica no informada que prioriza los nodos de menor costo. La segunda es la "Búsqueda de Ramificación y Acotación con Subestimación," una estrategia informada que combina el costo acumulado con una estimación heurística. Se utiliza el grafo de las ciudades de Rumanía como ejemplo.
+Changes in 'run.py':
 
+Added the function measure_time that returns the traversal of each search algorithm and the execution time of each.
 
-Cambios en 'run.py':
+Changes in 'search.py':
 
-Se ha agregado la funcion measure_time que devuelve el recorrido de cada algortimo de búsqueda y el tiempo de ejecución de cada uno.
+Implemented the new search algorithms (branch_and_bound and branch_and_bound_subestimation), which are useful for search problems with costs.
 
+Added new metrics (generated nodes, visited nodes, and cost).
 
-Cambios en 'search.py':
+Changes in 'utils.py':
 
-Se han implementado los nuevos algoritmos de búsqueda (branch_and_bound y branch_and_bound_subestimation), que son útiles para problemas de búsqueda con costos.
+Improved the 'pop' method of the 'FIFOQueue' class to simplify element removal.
 
-Se han añadido nuevas métricas (nodos generados, nodos visitados y coste).
+Implemented two new priority queues, 'BranchAndBoundQueue' and 'InformedPriorityQueue,' used in the 'branch_and_bound' and 'branch_and_bound_subestimation' algorithms, respectively.
 
+Operation of 'BranchAndBoundQueue':
 
-Cambios en 'utils.py':
+- Method 'init': Initializes the queue and the initial node.
+- Method 'append': Adds an element to the end of the queue, making a call to the 'extend' method.
+- Method 'len': Returns the length of the queue.
+- Method 'extend': Adds neighboring nodes of the current node to the queue and rearranges the queue based on cost.
+- Method 'pop': Extracts the first element from the queue.
 
-Se ha mejorado el método 'pop' de la clase 'FIFOQueue' para simplificar la eliminación de elementos.
+Operation of 'InformedPriorityQueue':
 
-Se han implementado dos nuevas colas de prioridad, 'BranchAndBoundQueue' e 'InformedPriorityQueue', que se utilizan en los algoritmos 'branch_and_bound' y 'branch_and_bound_subestimation' respectivamente.
+Shares the methods of the previous class.
 
+The only difference lies in the 'extend' method, which now takes into account the problem's heuristic (new attribute of the class).
 
-Funcionamiento 'BranchAndBoundQueue':
-
-- Método '__init__': Inicializa la cola y el nodo inicial.
-
-- Método 'append': Agrega un elemento al final de la cola, pero haciendo una llamada al método 'extend'.
-
-- Método '__len__': Devuelve la longitud de la cola.
-
-- Método 'extend': Añade los nodos vecinos del actual a la cola y reordena dicha cola según el coste.
-
-- Método 'pop': Extrae el primer elemento de la cola.
-
-Funcionamiento 'InformedPriorityQueue':
-
-Comparte los métodos de la clase anterior. 
-
-La única diferencia reside en el método 'extend', el cual ahora tiene en cuenta la heurística del problema (nuevo atributo de la clase)
-
-La heurística proporcionada emplea el Teorema de Pitágoras para calcular la distancia que hay entre el nodo actual y el nodo destino.
+The provided heuristic uses the Pythagorean Theorem to calculate the distance between the current node and the destination node.
